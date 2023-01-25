@@ -1,0 +1,41 @@
+﻿<Properties StartupConfiguration="{6FDAACB0-82F2-4147-9B90-45236C56E0A9}|Default">
+  <Xamarin.Addins.Core.Project ActiveDebugTarget="MyAppleMacCatalystID" />
+  <MonoDevelop.MonoDroid LastDeploySdkVersion="13.1.0.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="GiftMaster/AddPersonGiftPopup.xaml.cs">
+    <Files>
+      <File FileName="GiftMaster/MainPage.xaml" Line="65" Column="60" />
+      <File FileName="GiftMaster/Models/GiftModel.cs" Line="1" Column="1" />
+      <File FileName="GiftMaster/Models/PersonModel.cs" Line="13" Column="1" />
+      <File FileName="GiftMaster/ViewModel/PersonViewModel.cs" Line="27" Column="1" />
+      <File FileName="GiftMaster/AddPersonPopup.xaml" Line="1" Column="1" />
+      <File FileName="GiftMaster/MainPage.xaml.cs" Line="19" Column="6" />
+      <File FileName="GiftMaster/AddPersonGiftPopup.xaml" Line="1" Column="1" />
+      <File FileName="GiftMaster/AddPersonGiftPopup.xaml.cs" Line="20" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="GiftMaster" expanded="True">
+            <Node name="GiftMaster" expanded="True">
+              <Node name="Helpers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="ViewModel" expanded="True" />
+              <Node name="AddPersonGiftPopup.xaml" expanded="True">
+                <Node name="AddPersonGiftPopup.xaml.cs" selected="True" />
+              </Node>
+              <Node name="AddPersonPopup.xaml" expanded="True" />
+              <Node name="MainPage.xaml" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.GiftMaster PreferredExecutionTarget="MyAppleMacCatalystID" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

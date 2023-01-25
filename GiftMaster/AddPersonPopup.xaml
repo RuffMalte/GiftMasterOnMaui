@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GiftMaster.AddPersonPopup"
+             xmlns:viewmodels="clr-namespace:GiftMaster.ViewModel"
+             x:DataType="viewmodels:PersonViewModel"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             CanBeDismissedByTappingOutsideOfPopup="False"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"
+             Size="280, 350">
+
+    <VerticalStackLayout Padding="10" Spacing="10" x:DataType="viewmodels:PersonViewModel">
+       
+
+        <FlexLayout
+            JustifyContent="SpaceBetween"
+            AlignItems="Center">
+            <Button
+                Text="Cancel"
+                TextColor="Blue"
+                BackgroundColor="Transparent"
+                HorizontalOptions="Start"
+                Clicked="ClosePopup"
+                Command="{Binding ClearInputsCommand}"/>
+                
+            <Button
+                Text="Save"
+                TextColor="Blue"
+                BackgroundColor="Transparent"
+                HorizontalOptions="End"
+                Command="{Binding AddPersonCommand}"
+                Clicked="ClosePopup"/>
+
+        </FlexLayout>
+        <Label
+            Text="Create a New Person"
+            FontSize="Large" FontAttributes="Bold" FontFamily=""
+            HorizontalTextAlignment="Center"/>
+        
+        <Entry
+            Text="{Binding newPersonNameInput}"
+            Placeholder="Enter a Name..."
+            PlaceholderColor="Gray"/>
+
+        <VerticalStackLayout Spacing="5">
+            <Label
+                Text="Pick a Birthday"
+                TextColor="Gray"/>
+            <DatePicker Date="{Binding newPersonDateInput}"/>
+        </VerticalStackLayout>
+
+
+        
+        
+
+        <VerticalStackLayout Spacing="5">
+           
+            <Label Text="Pick a Color" TextColor="Gray"/>
+            
+            <Border Stroke="#BBBBBB">
+                <FlexLayout
+                    x:Name="ColorChoice"
+                    BindableLayout.ItemsSource="{Binding PeopleBorderColorList}"
+                    AlignItems="Start"
+                    Wrap="Wrap">
+                    <SelectableItemsView BackgroundColor="Aqua"/>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="Color">
+                            <Button
+                            CornerRadius="22"
+                            Text=" "
+                            Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodels:PersonViewModel}}, Path=AddColorToPersonCommand}"
+                            CommandParameter="{Binding .}"
+                            BackgroundColor="{Binding .}"
+                            Margin="2"/>
+                            
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </Border>
+         </VerticalStackLayout>
+        
+        
+
+    </VerticalStackLayout>
+</mct:Popup>

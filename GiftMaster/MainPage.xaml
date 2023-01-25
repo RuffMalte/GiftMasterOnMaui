@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:GiftMaster.Models"
+             xmlns:viewmodels="clr-namespace:GiftMaster.ViewModel"
+             x:DataType="viewmodels:PersonViewModel"
+             x:Class="GiftMaster.MainPage">
+    
+
+    
+    <Grid Padding="16" RowSpacing="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>        
+
+        <!-- Gift Status Help View -->
+        <VerticalStackLayout Spacing="10">
+            <Grid ColumnSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    BackgroundColor="LightGray"
+                    Stroke="#512BD4"
+                    StrokeThickness="5"
+                    Padding="5"
+                    HeightRequest="50"
+                    StrokeShape="RoundRectangle 2,10,10,10">
+                    <FlexLayout
+                        JustifyContent="SpaceBetween"
+                        AlignItems="Center">
+                        <HorizontalStackLayout>
+                            <Ellipse WidthRequest="20" HeightRequest="20" Fill="LightYellow"/>
+                            <Label Text=" 💡 Idea"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Ellipse WidthRequest="20" HeightRequest="20" Fill="LightGreen"/>
+                            <Label Text=" 🛍 Bought"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout>
+                            <Ellipse WidthRequest="20" HeightRequest="20" Fill="MediumPurple"/>
+                            <Label Text=" 🎉 Given"/>
+                        </HorizontalStackLayout>
+                    </FlexLayout>
+                </Border>
+                <Border
+                    Grid.Column="1"
+                    BackgroundColor="LightGray"
+                    Stroke="#512BD4"
+                    StrokeThickness="5"
+                    Padding="1"
+                    Margin="0"
+                    HeightRequest="50"
+                    StrokeShape="RoundRectangle 2,10,10,10">
+                    <HorizontalStackLayout Padding="0" Margin="0">
+                        <Button
+                            Grid.Column="1"
+                            Text="➕👤"
+                            Scale="1.4"
+                            BackgroundColor="Transparent"
+                            Clicked="AddPersonPopupClicked"
+                            Command="{Binding ClearInputsCommand}"/>
+                    </HorizontalStackLayout>
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+        
+        <CollectionView
+            ItemsSource="{Binding People}"
+            x:Name="PeopleList"
+            Grid.Row="1">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    ItemSpacing="10"
+                    Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <!-- Person -->
+                    <Border
+                        x:DataType="models:PersonModel"
+                        Padding="10, 8, 0, 0"
+                        BackgroundColor="LightGray"
+                        StrokeThickness="7"
+                        Stroke="{Binding color}"
+                        StrokeShape="RoundRectangle 2,15,15,15">
+                        <VerticalStackLayout Spacing="13">
+
+
+                            <!-- Name and Birthday-->
+                            <FlexLayout
+                                JustifyContent="SpaceBetween"
+                                AlignItems="Center">
+                                <Label
+                                    Text="{Binding name}"
+                                    FontAttributes="Bold"
+                                    FontFamily=""
+                                    FontSize="Header"/>
+                                <HorizontalStackLayout >
+                                    <Label Text="{Binding birthday, StringFormat='{0: dd.MM.yyyy}'}"/>
+                                    <Button
+                                        Text="🗑️"
+                                        x:DataType="viewmodels:PersonViewModel"
+                                        BackgroundColor="Transparent"
+                                        Command="{Binding Path=BindingContext.DeletePersonCommand, Source={x:Reference PeopleList}}"
+                                        CommandParameter="{Binding .}"/>
+                                </HorizontalStackLayout>
+                            </FlexLayout>
+
+                            <!-- Gift items -->
+                            <CollectionView
+                                x:Name="GiftList"
+                                VerticalOptions="Start"
+                                HorizontalOptions="Start"
+                                WidthRequest="370"
+                                HeightRequest="65"                                
+                                ItemsLayout="VerticalGrid, 1"
+                                ItemsSource="{Binding gifts}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                         <Border
+                                            BackgroundColor="{Binding color}"
+                                            Padding="3"
+                                            StrokeShape="RoundRectangle 2,7,7,7">
+                                            <FlexLayout
+                                                JustifyContent="SpaceBetween"
+                                                AlignItems="Center">
+                                                <HorizontalStackLayout x:DataType="models:GiftModel">
+                                                    <Label Text="{Binding price}"/>
+                                                    <Label Text="€ - "/>
+                                                    <Label Text="{Binding title}" MaximumWidthRequest="220" LineBreakMode="TailTruncation"/>
+                                                </HorizontalStackLayout>
+                                                
+                                                <HorizontalStackLayout>
+                                                    <Button
+                                                        Text="🔧"
+                                                        x:DataType="viewmodels:PersonViewModel"
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:PersonViewModel}}, Path=ChangeGiftStatusCommand}"
+                                                        CommandParameter="{Binding .}"/>
+
+                                                    <Button
+                                                        Text="🗑️"
+                                                        x:DataType="viewmodels:PersonViewModel"
+                                                        BackgroundColor="Transparent"
+                                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:PersonViewModel}}, Path=DeleteGiftCommand}"
+                                                        CommandParameter="{Binding .}"/>
+                                                </HorizontalStackLayout>
+                                            </FlexLayout>
+                                        </Border>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+
+                            <!-- Total Gifts and Add New Gifts -->
+                            <FlexLayout
+                                Wrap="Wrap"
+                                JustifyContent="SpaceBetween"
+                                AlignItems="Center"
+                                x:DataType="models:PersonModel">
+                                <HorizontalStackLayout x:DataType="models:PersonModel">
+                                    <Label Text="Total Gifts: " TextColor="Gray"/>
+                                    <Label Text="{Binding gifts.Count}" TextColor="Gray"/>
+                                </HorizontalStackLayout>
+
+                                <Button
+                                    Text="➕🎁"
+                                    FontSize="Large"
+                                    BackgroundColor="Transparent"
+                                    Clicked="AddPersonGiftPopupClicked"
+                                    Command="{Binding Path=BindingContext.GetCurrentPersonCommand, Source={x:Reference PeopleList}}"
+                                    CommandParameter="{Binding .}"/>
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

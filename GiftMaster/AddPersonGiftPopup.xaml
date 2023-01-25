@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mct:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GiftMaster.AddPersonGiftPopup"
+             xmlns:viewmodels="clr-namespace:GiftMaster.ViewModel"
+             x:DataType="viewmodels:PersonViewModel"
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             CanBeDismissedByTappingOutsideOfPopup="False"
+             VerticalOptions="Center"
+             HorizontalOptions="Center"
+             Size="280, 300">
+
+    <VerticalStackLayout Padding="10" Spacing="10" x:DataType="viewmodels:PersonViewModel">
+       
+        <FlexLayout
+            JustifyContent="SpaceBetween"
+            AlignItems="Center">
+
+            <Button
+            Text="Cancel"
+            BackgroundColor="Transparent"
+            TextColor="Blue"
+            Clicked="ClosePopup"/>
+
+            <Button
+            Text="Save"
+            BackgroundColor="Transparent"
+            TextColor="Blue"
+            Clicked="ClosePopup"
+            Command="{Binding addGiftCommand}"/>
+        </FlexLayout>
+
+        <Label
+            Text="Add a New Gift"
+            FontSize="Large" FontAttributes="Bold" FontFamily=""
+            HorizontalTextAlignment="Center"/>
+
+        <Entry
+            Text="{Binding newGiftTitleInput}"
+            Placeholder="Enter a Title..."
+            PlaceholderColor="Gray"/>
+
+        <VerticalStackLayout Spacing="5">
+            <Label
+                Text="Enter a Price"
+                TextColor="Gray"/>
+            <Entry
+                Text="{Binding newGiftPriceInput}"
+                PlaceholderColor="Gray"
+                Keyboard="Numeric"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="5">
+            <Label
+                Text="Select Status"
+                TextColor="Gray"/>
+
+            <Border Stroke="#BBBBBB" HeightRequest="40" Padding="5" StrokeShape="RoundRectangle 4">
+                <Button
+                    Text="Change Gift Status"
+                    BackgroundColor="Transparent"
+                    TextColor="Blue"
+                    Command="{Binding SetGiftStatusCommand}"/>
+            </Border>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</mct:Popup>
